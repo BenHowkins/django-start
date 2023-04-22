@@ -9,6 +9,14 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
+from pathlib import Path
+import os
+
+if os.path.isfile("env.py"):
+    import env
+
+import dj_database_url
+import env
 
 from pathlib import Path
 
@@ -26,7 +34,7 @@ SECRET_KEY = 'django-insecure-7rtb!0r4(inaim#d!r$g$nt*vd&0uu3$ib!iea@gd-)jyx-#m)
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    '8000-benhowkins-django-start-frzkc6o50t.us2.codeanyapp.com'
+    '8000-benhowkins-django-start-133hl084rt.us2.codeanyapp.com'
 ]
 
 
@@ -76,13 +84,16 @@ WSGI_APPLICATION = 'django_todo.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
+DATABASES = {
+    'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
